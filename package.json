@@ -1,0 +1,23 @@
+{
+  "name": "morpheus.js",
+  "version": "0.0.1",
+  "description": "An object graph framework wrapping the Neo4J database system. It uses the REST-API to perform requests. All requests are transactional.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha /test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "something"
+  },
+  "keywords": [
+    "neo4j",
+    "graph",
+    "database",
+    "orm",
+    "object",
+    "graph"
+  ],
+  "author": "Richard Habermann <sittingbool@gmx.de> (https://github.com/sittingbool/)",
+  "license": "MIT"
+}
