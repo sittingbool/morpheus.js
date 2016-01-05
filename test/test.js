@@ -15,8 +15,8 @@ describe('neo4j-connector', function() {
     var lastCreatedObject;
 
     before(function() {
-        process.env.runMode = 'development';
-        DataController.getInstance(); // runs setup for neo4j
+        var connector = Neo4jConnector.getInstance();
+        connector.serverPath = 'http://localhost:7474';
     });
 
     after( function() {
@@ -60,7 +60,7 @@ describe('neo4j-connector', function() {
     it('should create an entity instance with access object', function( done) {
         var result;
 
-        var dao = DataController.getInstance().accessObjectWithClass('BaseDAO');
+        var dao = new Neo4jBaseDAO();
 
         dao.entityName = 'Test';
 
@@ -84,7 +84,7 @@ describe('neo4j-connector', function() {
 
     it('should list an entity with access object', function( done) {
         var result;
-        var dao = DataController.getInstance().accessObjectWithClass('BaseDAO');
+        var dao = new Neo4jBaseDAO();
 
         dao.entityName = 'Test';
 
@@ -103,7 +103,7 @@ describe('neo4j-connector', function() {
 
     it('should list an entity with access object and where clause', function( done) {
         var result;
-        var dao = DataController.getInstance().accessObjectWithClass('BaseDAO');
+        var dao = new Neo4jBaseDAO();
 
         dao.entityName = 'Test';
 
@@ -122,7 +122,7 @@ describe('neo4j-connector', function() {
 
     it('should list an entity with access object and options', function( done) {
         var result;
-        var dao = DataController.getInstance().accessObjectWithClass('BaseDAO');
+        var dao = new Neo4jBaseDAO();
 
         dao.entityName = 'Test';
 
@@ -141,7 +141,7 @@ describe('neo4j-connector', function() {
 
     it('should update a node with access object and object data', function( done) {
         var result;
-        var dao = DataController.getInstance().accessObjectWithClass('BaseDAO');
+        var dao = new Neo4jBaseDAO();
 
         dao.entityName = 'Test';
 
@@ -166,7 +166,7 @@ describe('neo4j-connector', function() {
 
     it('should update a node with access object and where clause', function( done) {
         var result;
-        var dao = DataController.getInstance().accessObjectWithClass('BaseDAO');
+        var dao = new Neo4jBaseDAO();
 
         dao.entityName = 'Test';
 
@@ -191,7 +191,7 @@ describe('neo4j-connector', function() {
 
     it('should delete a node with access object and object data', function( done) {
         var result;
-        var dao = DataController.getInstance().accessObjectWithClass('BaseDAO');
+        var dao = new Neo4jBaseDAO();
 
         dao.entityName = 'Test';
 
@@ -209,7 +209,7 @@ describe('neo4j-connector', function() {
 
     it('should delete a node with access object and where clause', function( done) {
         var result;
-        var dao = DataController.getInstance().accessObjectWithClass('BaseDAO');
+        var dao = new Neo4jBaseDAO();
 
         dao.entityName = 'Test';
 
