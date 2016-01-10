@@ -1,6 +1,6 @@
 {
   "name": "morpheus.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "An object graph framework wrapping the Neo4J database system. It uses the REST-API to perform requests. All requests are transactional.",
   "main": "index.js",
   "scripts": {
