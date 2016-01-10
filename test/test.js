@@ -11,6 +11,7 @@ var Neo4jBaseDAO = require('../lib/data-access/Neo4jBaseDAO');
 
 describe('neo4j-connector', function() {
 
+    var firstCreatedId;
     var lastCreatedId;
     var lastCreatedObject;
 
@@ -52,6 +53,8 @@ describe('neo4j-connector', function() {
         _.isNumber(result[0].n[0].id).should.be.true;
 
         result[0].n[0].id.should.be.greaterThanOrEqual(0);
+
+        firstCreatedId = result[0].n[0].id;
 
         done();
     });
@@ -184,6 +187,84 @@ describe('neo4j-connector', function() {
         dao.transaction.rollback();
 
         lastCreatedObject = result[0];
+
+        done();
+    });
+
+
+    it('should create and delete a single direction relationship', function( done) {
+        var result;
+        var dao = new Neo4jBaseDAO();
+
+        var fetchIt = function() {
+            var fetched = dao.transaction.performCypherRequest(
+                'START source=node('+firstCreatedId+'), target=node('+lastCreatedId+') MATCH source-[rel:someRelationship]->target RETURN rel;');
+
+            return dao.combinedResultsForIdentifier(fetched, 'rel')[0] || null;
+        };
+
+        dao.entityName = 'Test';
+
+        // create
+        result = dao.createRelationship(firstCreatedId, lastCreatedId, 'someRelationship');
+
+        result.should.be.equal(1);
+
+        result = fetchIt();
+
+        ( !!result ).should.be.true;
+        ( typeof result.id === 'number' && result.id > 0 ).should.be.true;
+
+        // delete
+        result = dao.deleteRelationship(firstCreatedId, lastCreatedId, 'someRelationship');
+
+        result.should.be.equal(1);
+
+        result = fetchIt();
+
+        ( !!result ).should.be.false;
+
+        dao.transaction.rollback();
+
+        done();
+    });
+
+
+    it('should create and delete a double direction relationship', function( done) {
+        var result;
+        var dao = new Neo4jBaseDAO();
+
+        var fetchIt = function() {
+            var fetched = dao.transaction.performCypherRequest(
+                'START source=node('+firstCreatedId+'), target=node('+lastCreatedId+') ' +
+                'MATCH source-[rel:someRelationship]->target,' +
+                ' source<-[inv:invRelationship]-target RETURN rel;');
+
+            return dao.combinedResultsForIdentifier(fetched, 'rel')[0] || null;
+        };
+
+        dao.entityName = 'Test';
+
+        // create
+        result = dao.createRelationship(firstCreatedId, lastCreatedId, 'someRelationship', 'invRelationship');
+
+        result.should.be.equal(2);
+
+        result = fetchIt();
+
+        ( !!result ).should.be.true;
+        ( typeof result.id === 'number' && result.id > 0 ).should.be.true;
+
+        // delete
+        result = dao.deleteRelationship(firstCreatedId, lastCreatedId, 'someRelationship', 'invRelationship');
+
+        result.should.be.equal(2);
+
+        result = fetchIt();
+
+        ( !!result ).should.be.false;
+
+        dao.transaction.commit();
 
         done();
     });
