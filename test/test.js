@@ -270,6 +270,28 @@ describe('neo4j-connector', function() {
     });
 
 
+    it('should find a node by id', function( done) {
+        var result;
+        var dao = new Neo4jBaseDAO();
+
+        dao.entityName = 'Test';
+
+        result = dao.nodeById(firstCreatedId);
+
+        result.should.be.ok;
+        result.id.should.be.equal(firstCreatedId);
+
+        result = dao.nodeById(lastCreatedId, true); // save mode (with where instead of node() )
+
+        result.should.be.ok;
+        result.id.should.be.equal(lastCreatedId);
+
+        dao.transaction.rollback();
+
+        done();
+    });
+
+
     it('should delete a node with access object and object data', function( done) {
         var result;
         var dao = new Neo4jBaseDAO();
