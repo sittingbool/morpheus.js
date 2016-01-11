@@ -6,7 +6,7 @@ var should = require('should');
 var _ = require('lodash');
 
 var Neo4jConnector = require('../lib/connection/Neo4jConnector');
-var Neo4JTransaction = require('../lib/connection/Neo4JTransaction');
+var Neo4jTransaction = require('../lib/connection/Neo4jTransaction');
 var Neo4jBaseDAO = require('../lib/data-access/Neo4jBaseDAO');
 
 describe('neo4j-connector', function() {
@@ -23,7 +23,7 @@ describe('neo4j-connector', function() {
     after( function() {
         //return; // if we need the data still
         // clean database
-        var transaction = new Neo4JTransaction();
+        var transaction = new Neo4jTransaction();
 
         transaction.performCypherRequest(
             'MATCH (n:Test) OPTIONAL MATCH n-[r]-() DELETE r,n');
@@ -33,7 +33,7 @@ describe('neo4j-connector', function() {
 
 
     it('should create something', function( done) {
-        var transaction = new Neo4JTransaction();
+        var transaction = new Neo4jTransaction();
 
         var result = transaction.performCypherRequest(
             'CREATE (n:Test {name: "testcase 1", created: timestamp()}) RETURN id(n), n, labels(n)');
