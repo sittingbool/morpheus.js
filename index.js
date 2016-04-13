@@ -6,5 +6,6 @@ module.exports = {
     'Neo4jRequest': require('./lib/connection/Neo4jRequest'),
     'Neo4jResultParser': require('./lib/connection/Neo4jResultParser'),
     'Neo4jTransaction': require('./lib/connection/Neo4jTransaction'),
-    'Neo4jBaseDAO': require('./lib/data-access/Neo4jBaseDAO')
+    'Neo4jBaseDAO': require('./lib/data-access/Neo4jBaseDAO'),
+    'ApiModel': require('./lib/model/ApiModel')
 };

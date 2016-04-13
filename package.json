@@ -20,7 +20,10 @@
   ],
   "dependencies": {
     "inline-rest": "*",
-    "lodash": "*"
+    "lodash": "*",
+    "is-json": "*",
+    "dateformat": "*",
+    "sbool-node-utils": "*"
   },
   "devDependencies": {
     "mocha": "~1.21.4",

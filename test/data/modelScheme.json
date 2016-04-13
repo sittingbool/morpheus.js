@@ -1,0 +1,137 @@
+{
+   "version": "1",
+   "entities": [
+      {
+         "name": "Company",
+         "properties": [
+            {
+               "name": "name",
+               "type": "varchar255",
+               "index": false,
+               "optional": true,
+               "unique": false,
+               "encrypted": false
+            }
+         ],
+         "relationships": [
+            {
+               "name": "employees",
+               "destination": "Employee",
+               "inverse": "company",
+               "deleteRule": "nullify",
+               "index": false,
+               "optional": true,
+               "unique": false,
+               "type": "many"
+            },
+            {
+               "name": "customers",
+               "destination": "Customer",
+               "inverse": "company",
+               "deleteRule": "nullify",
+               "index": false,
+               "optional": true,
+               "unique": false,
+               "type": "many"
+            }
+         ],
+         "fetchedProperties": []
+      },
+      {
+         "name": "Employee",
+         "properties": [
+            {
+               "name": "firstName",
+               "type": "varchar255",
+               "index": false,
+               "optional": true,
+               "unique": false,
+               "encrypted": false
+            },
+            {
+               "name": "lastName",
+               "type": "varchar255",
+               "index": false,
+               "optional": true,
+               "unique": false,
+               "encrypted": false
+            }
+         ],
+         "relationships": [
+            {
+               "name": "company",
+               "destination": "Company",
+               "inverse": "employees",
+               "deleteRule": "nullify",
+               "index": false,
+               "optional": true,
+               "unique": false,
+               "type": "one"
+            }
+         ],
+         "fetchedProperties": []
+      },
+      {
+         "name": "Customer",
+         "properties": [
+            {
+               "name": "name",
+               "type": "varchar255",
+               "index": false,
+               "optional": true,
+               "unique": false,
+               "encrypted": false
+            }
+         ],
+         "relationships": [
+            {
+               "name": "company",
+               "destination": "Company",
+               "inverse": "customers",
+               "deleteRule": "nullify",
+               "index": false,
+               "optional": true,
+               "unique": false,
+               "type": "one"
+            },
+            {
+               "name": "products",
+               "destination": "Product",
+               "inverse": "customer",
+               "deleteRule": "nullify",
+               "index": false,
+               "optional": true,
+               "unique": false,
+               "type": "many"
+            }
+         ],
+         "fetchedProperties": []
+      },
+      {
+         "name": "Product",
+         "properties": [
+            {
+               "name": "name",
+               "type": "varchar255",
+               "index": false,
+               "optional": true,
+               "unique": false,
+               "encrypted": false
+            }
+         ],
+         "relationships": [
+            {
+               "name": "customer",
+               "destination": "Customer",
+               "inverse": "products",
+               "deleteRule": "nullify",
+               "index": false,
+               "optional": true,
+               "unique": false,
+               "type": "one"
+            }
+         ],
+         "fetchedProperties": []
+      }
+   ]
+}

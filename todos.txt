@@ -1,0 +1,34 @@
+Create a fetch query caching engine
+-----------------------------------
+
+-> create a lokijs based database for fetched results. the object holds properties to quickly access the cache.
+
+for performance values that define the fetch request are stored on many but not to many separate properties
+
+those should be (so far):
+
+the database that was used (main node)
+the entity that was fetched
+the where - statements that were used
+the return statement that was used
+also be able to add custom identifiers that are used in insert-clearing (as written below)
+
+and after fetch:
+the ids that were fetched (also mapped ones)
+the mapping that was used
+
+and on that object the fetched data is stored to deliver without contacting the database
+
+-> when fetched using cache
+1) find the cache-entries with the same entity name
+2) check if the where - statements and return-statements fit. if there are more that 50 (or whatever threshold is defined) to check then compare incrementally (first word is same, 2nd word is same, 3rd word ...)
+3) if found, return result without contacting database
+
+-> when object is inserted / updated / deleted
+remove all cached that fit database, entity
+and if given one or many custom identifier only the ones that match it
+
+cache should be able to scale horizontally
+
+Create an output caching engine
+-------------------------------
